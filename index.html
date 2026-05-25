@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como foi seu dia?</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+
+            background: linear-gradient(135deg, #dbeafe, #fce7f3, #fef9c3);
+
+            color: #334155;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            padding: 20px;
+        }
+
+        .card {
+
+            background: rgba(255, 255, 255, 0.75);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, 0.4);
+
+            padding: 45px;
+
+            border-radius: 28px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+            position: relative;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 35px;
+            font-size: 17px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        button {
+
+            padding: 14px 28px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        #goodBtn {
+
+            background: #60a5fa;
+            color: white;
+
+        }
+
+        #goodBtn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.4);
+
+        }
+
+        #badBtn {
+
+            background: #fb7185;
+            color: white;
+
+            position: absolute;
+            right: -10px;
+
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .reasons-box {
+
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+
+            overflow-y: auto;
+
+            background: rgba(255, 255, 255, 0.75);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, 0.4);
+
+            padding: 35px;
+
+            border-radius: 28px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .reasons-box h2 {
+
+            font-size: 32px;
+            margin-bottom: 25px;
+
+            color: #1e293b;
+
+        }
+
+        .reason {
+
+            background: rgba(255, 255, 255, 0.6);
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            margin-bottom: 12px;
+
+            color: #475569;
+
+            transition: 0.2s;
+        }
+
+        .reason:hover {
+
+            transform: translateX(5px);
+
+            background: white;
+
+        }
+
+        #nextBtn {
+
+            margin-top: 25px;
+
+            background: #60a5fa;
+
+            color: white;
+        }
+
+        #nextBtn:hover {
+
+            transform: scale(1.05);
+
+        }
+
+        .backBtn {
+
+            margin-top: 15px;
+
+            background: #cbd5e1;
+
+            color: #334155;
+        }
+
+        .backBtn:hover {
+
+            transform: scale(1.05);
+
+        }
+
+        .cat-screen {
+
+            background: linear-gradient(135deg, #dbeafe, #fce7f3, #fef9c3);
+
+        }
+
+        .cat-screen img {
+
+            width: 380px;
+
+            max-width: 90%;
+
+            border-radius: 24px;
+
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+
+            animation: float 3s ease-in-out infinite;
+
+            cursor: pointer;
+        }
+
+        .cat-text {
+
+            margin-top: 20px;
+
+            font-size: 24px;
+
+            color: #475569;
+
+            font-weight: bold;
+        }
+
+        @keyframes float {
+
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+
+        }
+
+        /* Scroll */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #cbd5e1;
+
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PRIMEIRA TELA -->
+    <div class="screen" id="homeScreen">
+
+        <div class="card">
+
+            <h1>Como foi o seu dia?</h1>
+
+            <p class="subtitle">
+                Seja sincera 👀
+            </p>
+
+            <div class="buttons">
+
+                <button id="goodBtn">
+                    Bom 😌
+                </button>
+
+                <button id="badBtn">
+                    Ruim 😭
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SEGUNDA TELA -->
+    <div class="screen hidden" id="reasonsScreen">
+
+        <div class="reasons-box">
+
+            <h2>
+                101 motivos pelos quais seu dia foi melhor do que você imagina ✨
+            </h2>
+
+            <div id="reasonsList"></div>
+
+            <button id="nextBtn">
+                Ok... talvez você tenha razão 😳
+            </button>
+
+            <br>
+
+            <button class="backBtn" id="backHome">
+                Voltar ↩
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TELA DO GATINHO -->
+    <div class="screen hidden cat-screen" id="catScreen">
+
+        <img id="catImage" src="gatinho.png" alt="gatinho">
+
+        <p class="cat-text">
+            Clique no gatinho 🐱
+        </p>
+
+        <button class="backBtn" id="backReasons">
+            Voltar ↩
+        </button>
+
+    </div>
+
+    <script>
+
+        const badBtn = document.getElementById("badBtn");
+        const goodBtn = document.getElementById("goodBtn");
+
+        const homeScreen = document.getElementById("homeScreen");
+        const reasonsScreen = document.getElementById("reasonsScreen");
+        const catScreen = document.getElementById("catScreen");
+
+        const nextBtn = document.getElementById("nextBtn");
+
+        const backHome = document.getElementById("backHome");
+        const backReasons = document.getElementById("backReasons");
+
+        const reasonsList = document.getElementById("reasonsList");
+
+        const catImage = document.getElementById("catImage");
+
+        // botão ruim fugindo
+        badBtn.addEventListener("mouseover", () => {
+
+            const maxX =
+                window.innerWidth - badBtn.offsetWidth - 20;
+
+            const maxY =
+                window.innerHeight - badBtn.offsetHeight - 20;
+
+            const randomX =
+                Math.floor(Math.random() * maxX);
+
+            const randomY =
+                Math.floor(Math.random() * maxY);
+
+            badBtn.style.position = "fixed";
+
+            badBtn.style.left = randomX + "px";
+
+            badBtn.style.top = randomY + "px";
+
+        });
+
+        // motivos
+        const motivos = [
+
+            "Porque você acordou hoje.",
+            "Porque alguém provavelmente sorriu ao falar com você.",
+            "Porque café sempre melhora tudo.",
+            "Porque você sobreviveu a mais um dia caótico.",
+            "Porque seu gosto musical provavelmente salvou o dia.",
+            "Porque você continua tentando.",
+            "Porque você fez alguém rir sem perceber.",
+            "Porque seu olhar deve ter deixado alguém nervoso.",
+            "Porque dias ruins também acabam.",
+            "Porque você ainda tem episódios para assistir.",
+
+            "Porque gatos existem.",
+            "Porque existe chocolate.",
+            "Porque alguém sente sua falta quando você some.",
+            "Porque você merece coisas boas.",
+            "Porque talvez alguém tenha pensado em você hoje.",
+            "Porque seu sorriso provavelmente melhorou algum ambiente.",
+            "Porque músicas ficam melhores quando lembram alguém especial.",
+            "Porque você merece ouvir elogios sinceros.",
+            "Porque seu jeito é diferente.",
+            "Porque amanhã pode surpreender.",
+
+            "Porque você ainda tem histórias incríveis pra viver.",
+            "Porque sua presença faz diferença.",
+            "Porque você provavelmente ficou bonita hoje sem perceber.",
+            "Porque alguém abriria um sorriso vendo sua notificação.",
+            "Porque você merece momentos leves.",
+            "Porque sua energia marca pessoas.",
+            "Porque você ainda vai viver momentos inesquecíveis.",
+            "Porque você parece ser alguém fácil de admirar.",
+            "Porque você ainda pode transformar um dia comum em especial.",
+            "Porque talvez hoje tenha sido melhor do que parece."
+
+        ];
+
+        // completar até 101
+        while (motivos.length < 101) {
+
+            motivos.push(
+                "Porque você merece mais dias bons do que ruins ✨"
+            );
+
+        }
+
+        motivos.forEach(motivo => {
+
+            const div = document.createElement("div");
+
+            div.classList.add("reason");
+
+            div.textContent = motivo;
+
+            reasonsList.appendChild(div);
+
+        });
+
+        // tela motivos
+        goodBtn.addEventListener("click", () => {
+
+            homeScreen.classList.add("hidden");
+
+            reasonsScreen.classList.remove("hidden");
+
+        });
+
+        // tela gatinho
+        nextBtn.addEventListener("click", () => {
+
+            reasonsScreen.classList.add("hidden");
+
+            catScreen.classList.remove("hidden");
+
+        });
+
+        // voltar inicio
+        backHome.addEventListener("click", () => {
+
+            reasonsScreen.classList.add("hidden");
+
+            homeScreen.classList.remove("hidden");
+
+        });
+
+        // voltar motivos
+        backReasons.addEventListener("click", () => {
+
+            catScreen.classList.add("hidden");
+
+            reasonsScreen.classList.remove("hidden");
+
+        });
+
+        // clicar no gatinho
+        catImage.addEventListener("click", () => {
+
+            window.location.href =
+                "https://www.youtube.com/watch?v=NWeyUpqnKuk";
+
+        });
+
+    </script>
+
+</body>
+
+</html>
